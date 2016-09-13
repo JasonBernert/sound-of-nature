@@ -7,5 +7,5 @@ Each soundscape stitches together the following sounds from their respective API
 * [Bird sounds](http://www.xeno-canto.org/article/153)
 
 ### Technology
-Each soundscape stitches together the following sounds from their respective APIs.
-* [Leaflet](http://openweathermap.org/current) for the map services
+* [Leaflet](http://openweathermap.org/current)
+* [Esri World Imagery](https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9) map tiles
