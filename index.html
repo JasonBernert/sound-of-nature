@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Sound Of Nature</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <div id="welcome">
+      <h1 class="padded-multiline"><span>If you removed all the people, what would the world sound&nbsp;like?</span></h1>
+      <button type="button" onclick="next()"><i class="ion-android-arrow-forward"></i></button>
+    </div>
+
+    <div id="select" style="display:none;">
+      <h2 class="padded-multiline"><span>Hover over a place and select to hear nature sounds from that place.</span></h2>
+      <icon class="ion-android-close"></icon>
+      <div id="cordinates"><span id="cords-lat">-124.34</span></br><span id="cords-lon">34</span></div>
+      <div class="buttonContainer"><button id="listenButton" type="button" onclick="listen()">Listen</button></div>
+    </div>
+
+
+
+    <div id="map"></div>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
