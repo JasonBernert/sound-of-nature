@@ -3,8 +3,7 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
-  font-family: 'Roboto', sans-serif;
-
+  font-family: 'Montserrat', sans-serif;
 }
 
 #map {
@@ -13,16 +12,19 @@ html, body {
   margin: 0;
 }
 
+.leaflet-control-attribution {
+  background-color: rgba(0, 0, 0, 1) !important;
+  color: #FEFEFE !important;
+}
+
 img {
-   -webkit-filter: saturate(60%);
-    filter: saturate(60%);
+ -webkit-filter: saturate(60%);
+  filter: saturate(60%);
 }
 
 .padded-multiline {
   margin: 60px auto;
-
-  line-height: 1.4;
-  max-width: 620px;
+  line-height: 1.5;
 }
 
 .padded-multiline span {
@@ -33,6 +35,7 @@ img {
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
+
 
 /*//////////////////////////*/
 /*///////// Welcome /////////*/
@@ -45,15 +48,14 @@ img {
   position: absolute;
   z-index: 1001;
   background: linear-gradient(135deg, rgba(85,239,203,0.9) 0%,rgba(30,87,153,0.9) 0%,rgba(85,239,203,0.9) 0%,rgba(91,202,255,0.9) 100%);
-  /*opacity: 0.9;*/
 }
 
 #welcome h1 {
   font-size: 40px;
-  /*margin: 60px auto;*/
+  max-width: 580px;
 }
 
-button{
+button {
   position: relative;
   margin-top: 80px;
   display: block;
@@ -67,26 +69,24 @@ button{
   color: #FEFEFE;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  padding: 0 14px;
+  padding: 0 18px;
+  font-weight: bold;
 
   transition: 0.75s ease;
   cursor: pointer;
   pointer-events: auto;
-
-  /*-webkit-transform: rotate(45deg);
-  transform: rotate(45deg);*/
+  font-family: 'Montserrat', sans-serif;
 }
 
 button:hover {
   background-color: rgba(255,255,255,1);
   color: #343332;
   border: 3px solid #343332;
-
 }
 
 
 /*//////////////////////////*/
-/*///////// Listen /////////*/
+/*///////// Explore ////////*/
 /*//////////////////////////*/
 
 #select{
@@ -98,32 +98,37 @@ button:hover {
   background-color: rgba(0, 0, 0, 0.25);
 }
 
+#select h2{
+  max-width: 540px;
+  text-align: center;
+}
+
 .ion-android-close {
   position: absolute;
   top: 50%;
   left: 50%;
   color: #FEFEFE;
   font-size: 32px;
+  margin-left: -8px;
+  margin-top: -16px;
 }
 
 #cordinates{
   position: absolute;
   top: 50%;
-  left: 55%
-}
-
-#cords-lat {
+  left: 50%;
+  margin-top: -16px;
+  margin-left: 24px;
+  text-align: right;
+  width: 90px;
   background-color: #FEFEFE;
-}
-
-#cords-lon{
-  background-color: #FEFEFE;
+  padding: 4px;
 }
 
 .buttonContainer {
   position: absolute;
   width: 100%;
-  bottom: 20%
+  bottom: 10%
 }
 
 #listenButton {
@@ -133,11 +138,25 @@ button:hover {
   font-weight: bold;
 }
 
+/*//////////////////////////*/
+/*///////// Listen /////////*/
+/*//////////////////////////*/
+
+#listen {
+  position: absolute;
+  z-index: 1001;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+
 /*///////// Mobile /////////*/
 
 @media (max-width:540px) {
-  #infoBox h1 {
+
+  #welcome h1 {
     font-size: 30px;
-    /*margin: 60px auto;*/
   }
+
 }

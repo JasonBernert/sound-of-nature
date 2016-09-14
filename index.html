@@ -8,7 +8,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
     <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
   </head>
   <body>
@@ -19,13 +19,15 @@
     </div>
 
     <div id="select" style="display:none;">
-      <h2 class="padded-multiline"><span>Hover over a place and select to hear nature sounds from that place.</span></h2>
+      <h2 class="padded-multiline"><span>Move the map, then hit listen.</span></h2>
       <icon class="ion-android-close"></icon>
-      <div id="cordinates"><span id="cords-lat">-124.34</span></br><span id="cords-lon">34</span></div>
+      <div id="cordinates"><span id="cords-lat">40.00</span>° N</br><span id="cords-lon">-98.00</span>° W</div>
       <div class="buttonContainer"><button id="listenButton" type="button" onclick="listen()">Listen</button></div>
     </div>
 
-
+    <div id="listen" style="display:none;">
+      <button type="button" onclick="startOver()">Search Again</button>
+    </div>
 
     <div id="map"></div>
 
