@@ -15,18 +15,25 @@
 
     <div id="welcome">
       <h1 class="padded-multiline"><span>If you removed all the people, what would the world sound&nbsp;like?</span></h1>
-      <button type="button" onclick="next()"><i class="ion-android-arrow-forward"></i></button>
+      <button type="button" onclick="next()">Explore <i class="ion-android-arrow-forward"></i></button>
     </div>
 
     <div id="select" style="display:none;">
-      <h2 class="padded-multiline"><span>Move the map, then hit listen.</span></h2>
+      <h2 class="padded-multiline" style="margin: 60px auto;"><span>Drag the map, then hit listen.</span></h2>
       <icon class="ion-android-close"></icon>
       <div id="cordinates"><span id="cords-lat">40.00</span>° N</br><span id="cords-lon">-98.00</span>° W</div>
-      <div class="buttonContainer"><button id="listenButton" type="button" onclick="listen()">Listen</button></div>
+      <div class="buttonContainer">
+        <button id="listenButton" type="button" onclick="listen()">Listen</button>
+      </div>
     </div>
 
     <div id="listen" style="display:none;">
-      <button type="button" onclick="startOver()">Search Again</button>
+      <div id="soundscapeDiscription">
+
+      </div>
+      <!-- <div class="buttonContainer"> -->
+        <button id="startOverButton" type="button" onclick="startOver()">Search Again</button>
+      <!-- </div> -->
     </div>
 
     <div id="map"></div>
