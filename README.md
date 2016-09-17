@@ -3,7 +3,7 @@ One day I was sitting in a crowded room on the ground floor of a building downto
 
 ### APIs for different sounds:
 Each soundscape stitches together the following sounds from their respective APIs.
-* [Weather](http://openweathermap.org/current)
+* [Weather](http://openweathermap.org/current#geo)
 * [Bird sounds](http://www.xeno-canto.org/article/153)
 
 ### Technology

@@ -18,9 +18,10 @@ html, body {
 }
 
 img {
- -webkit-filter: saturate(60%);
+  -webkit-filter: saturate(60%);
   filter: saturate(60%);
-
+  -webkit-filter: brightness(0.6);
+  filter: brightness(0.6);
 }
 
 .padded-multiline {
@@ -97,7 +98,7 @@ button:hover {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  background-color: rgba(0, 0, 0, 0.25);
+  /*background-color: rgba(0, 0, 0, 0.25);*/
 }
 
 #select h2{
@@ -156,6 +157,7 @@ button:hover {
 #soundscapeDiscription{
   color: #FEFEFE;
   font-size: 48px;
+  padding: 1em;
 }
 
 #startOverButton{
@@ -163,6 +165,43 @@ button:hover {
   bottom: 0;
   right: 0;
 }
+
+
+/*Animations*/
+
+.animated {
+           -webkit-animation-duration: 1s;
+           animation-duration: 1s;
+           -webkit-animation-fill-mode: both;
+           animation-fill-mode: both;
+        }
+
+  @-webkit-keyframes fadeInLeft {
+     0% {
+        opacity: 0;
+        -webkit-transform: translateX(-20px);
+     }
+     100% {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+     }
+  }
+
+  @keyframes fadeInLeft {
+     0% {
+        opacity: 0;
+        transform: translateX(-20px);
+     }
+     100% {
+        opacity: 1;
+        transform: translateX(0);
+     }
+  }
+
+  .fadeInLeft {
+     -webkit-animation-name: fadeInLeft;
+     animation-name: fadeInLeft;
+  }
 
 /*///////// Mobile /////////*/
 
@@ -174,6 +213,10 @@ button:hover {
 
 
   #welcome h1 {
+    font-size: 30px;
+  }
+
+  #soundscapeDiscription{
     font-size: 30px;
   }
 
