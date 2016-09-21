@@ -9,4 +9,4 @@ Each soundscape stitches together the following sounds from their respective API
 ### Technology
 * [Leaflet](leafletjs.com)
 * [Esri World Imagery](https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9) map tiles
-<!-- * Maybe [Soundcite]https://github.com/NUKnightLab/soundcite/wiki for inline audio -->
+* Maybe [Soundcite]https://github.com/NUKnightLab/soundcite/wiki for inline audio
