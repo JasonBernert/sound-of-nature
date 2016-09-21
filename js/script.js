@@ -50,76 +50,90 @@
 	  var center = map.getCenter();
 	  var lat = center.lat;
 	  var lon = center.lng;
-	  // console.log(lat + ", " + lon);
 
-	  // Get Weather Data
+	  // Format API calls with latitude and longitude
 	  var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=0d4413a00459125fa382c5085054f312";
-	  $.getJSON(weatherAPI, function(weatherData){
+		var birdAPI = "js/birdData.json";
 
-	    // console.log(weatherData);
-
-	    // Wind descriptions based on the Beaufort scale
-	    function describeWind(d) {
-	        return d > 31  ? 'there is high wind' :
-	               d > 25  ? 'there is a strong breeze' :
-	               d > 18  ? 'there is a fresh breeze' :
-	               d > 13  ? 'there is a moderate breeze' :
-	               d > 8   ? 'there is a gentle breeze' :
-	               d > 3   ? 'there is a light breeze' :
-	               d > 0   ? 'the air is calm' :
-	                         '';
-	    }
-
-	    // Wind descriptions based on the Beaufort scale
-	    function describeRain(d) {
-	        if (d.rain){
-	          return ' and it&rsquo;s <span class="soundcite" data-id="156490896" data-start="0" data-end="2420653" data-plays="1">raining</span>'
-	        } else {
-	          return ''
-	        }
-	    }
-
-	    // Populate soundscape discription from data
-	    $('#soundscapeDiscription').html("Here, "
-	      // + weatherData.name + ", "
-	      + describeWind(weatherData.wind.speed)
-	      + describeRain(weatherData)
-	      + "."
-	    );
-
-			$.getScript( "https://cdn.knightlab.com/libs/soundcite/latest/js/soundcite.min.js" )
-			  .done(function( script, textStatus ) {
-			    // console.log( textStatus );
-			  })
-			  .fail(function( jqxhr, settings, exception ) {
-			    $( "div.log" ).text( "Triggered ajaxError handler." );
-			});
-
-	  });
+		// Get Bird Data methods: point of box
+	  // var birdAPI = "http://www.xeno-canto.org/api/2/recordings?query=lat:" + lat + ",lon:" + lon + "callback=?";
+	  // var birdBoxAPI = "http://www.xeno-canto.org/api/2/recordings?query=box:" + (lat - 0.5) + "," + (lon - 0.5) + "," + (lat + 0.5) + "," + (lon + 0.5) + "callback=?";
+	  // var birdBoxExampleAPI = "http://www.xeno-canto.org/api/2/recordings?query=box:45.5,-122.0,46.0,-121.0";
 
 
-	  // Get Bird Data
-	  var birdAPI = "http://www.xeno-canto.org/api/2/recordings?query=lat:" + lat + ",lon:" + lon + "callback=?";
-	  var birdBoxAPI = "http://www.xeno-canto.org/api/2/recordings?query=box:" + (lat - 0.5) + "," + (lon - 0.5) + "," + (lat + 0.5) + "," + (lon + 0.5) + "callback=?";
-	  var birdBoxExampleAPI = "http://www.xeno-canto.org/api/2/recordings?query=box:45.5,-122.0,46.0,-121.0callback=?";
+		$.when(
+		    $.getJSON(weatherAPI),
+		    $.getJSON(birdAPI)
+		).done(function(rawWeatherData, rawBirdData) {
 
-	  console.log(birdBoxAPI);
-	  $.getJSON(birdBoxExampleAPI, function(callback){
-				console.log(callback);
-	  });
+			// Weather Data!
+			var weatherData = rawWeatherData[0];
 
+			// Wind descriptions based on the Beaufort scale
+			function describeWind(d) {
+					return d > 31  ? 'there is high wind' :
+								 d > 25  ? 'there is a strong breeze' :
+								 d > 18  ? 'there is a fresh breeze' :
+								 d > 13  ? 'there is a moderate breeze' :
+								 d > 8   ? 'there is a gentle breeze' :
+								 d > 3   ? 'there is a light breeze' :
+								 d > 0   ? 'the air is calm' :
+													 '';
+			}
+
+			// Rain description. Maybe make more descriptive based on amount of rain?
+			function describeRain(d) {
+					if (d.rain){
+						return ' and it&rsquo;s raining'
+					} else {
+						return ''
+					}
+			}
+
+			// Bird Data!
+			var birdData = rawBirdData[0];
+
+			// Make an array of three random and unique birds from the data
+			// Needs work: lower case names and create unique.
+			// Maybe construct new JSON with audio url and formated names?
+			var birds = [];
+			for (var i = 0; i < birdData.recordings.length; i++) {
+				birds.push(birdData.recordings[i].en);
+			}
+			console.log(birds.filter(onlyUnique));
+
+			// Bird description.
+			function describeBirds(d){
+				return "You can hear the " + d[0].toLowerCase() + ", " + d[1].toLowerCase() + ", and " + d[2].toLowerCase();
+			}
+
+			// Populate soundscape discription from data
+			$('#soundscapeDiscription').html("Here, "
+				+ describeWind(weatherData.wind.speed)
+				+ describeRain(weatherData)
+				+ ". "
+				+ describeBirds(birds.filter(onlyUnique))
+				+ "."
+			);
+
+		});
 	}
 
-	// When the user hits the "Search Again" button
-function startOver() {
-	$("#listen").fadeOut( 200, function() {
-		$('#soundscapeDiscription').html("");
-    $("#select").fadeIn( 400 );
-		map.panTo([40, -98]);
-	  $('#cords-lat').text("40.00");
-	  $('#cords-lon').text("-98.00");
+// When the user hits the "Search Again" button
+	function startOver() {
+		$("#listen").fadeOut( 200, function() {
+			$('#soundscapeDiscription').html("");
+	    $("#select").fadeIn( 400 );
 
-  });
+			// Pan back to center of map when searching again?
+				// map.panTo([40, -98]);
+			  // $('#cords-lat').text("40.00");
+			  // $('#cords-lon').text("-98.00");
+	  });
+	}
 
-
-}
+// Helper functions
+	// Find only unique items in an array
+	function onlyUnique(value, index, self) {
+	    return self.indexOf(value) === index;
+	}
