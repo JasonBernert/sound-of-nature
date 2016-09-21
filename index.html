@@ -4,23 +4,28 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Sound Of Nature</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
     <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+    <link href='https://cdn.knightlab.com/libs/soundcite/latest/css/player.css' rel='stylesheet' type='text/css'>
+    <!-- <script type='text/javascript' src='https://cdn.knightlab.com/libs/soundcite/latest/js/soundcite.min.js'></script> -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
   </head>
   <body>
 
     <div id="welcome">
       <h1 class="padded-multiline animated fadeInLeft"><span>If you removed all the people, what would the world sound&nbsp;like?</span></h1>
-      <button type="button" onclick="next()">Explore <i class="ion-android-arrow-forward"></i></button>
+<!-- <p id="soundscapeDiscription">Here, the air is calm and it’s <span class="soundcite" data-id="156490896" data-start="0" data-end="2420653" data-plays="1">raining</span>.</p> -->
+
+      <button class="animated fadeInUp" type="button" onclick="next()">Explore <i class="ion-android-arrow-forward"></i></button>
     </div>
 
     <div id="select" style="display:none;">
       <div id="explore-fade-in">
-        <h2 class="padded-multiline" style="margin: 60px auto;"><span>Drag the map, then hit listen.</span></h2>
+        <h2 class="padded-multiline" style="margin: 60px auto;"><span>Drag the map, then hit&nbsp;listen.</span></h2>
         <icon class="ion-android-close"></icon>
         <div id="cordinates"><span id="cords-lat">40.00</span>° N</br><span id="cords-lon">-98.00</span>° W</div>
         <div class="buttonContainer">
@@ -31,7 +36,6 @@
 
     <div id="listen" style="display:none;">
       <div id="soundscapeDiscription">
-
       </div>
       <!-- <div class="buttonContainer"> -->
         <button id="startOverButton" type="button" onclick="startOver()">Search Again</button>
