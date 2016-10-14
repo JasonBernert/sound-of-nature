@@ -9,7 +9,8 @@
 	  zoom: 4,
 		// maxBounds: [[85, -180],[-85, 180]],
 	  minZoom: 4,
-	  maxZoom: 4
+	  maxZoom: 4,
+		worldCopyJump: true
 	 });
 
 	map.addLayer(Esri_WorldImagery);
@@ -53,13 +54,12 @@
 
 	  // Format API calls with latitude and longitude
 	  var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=0d4413a00459125fa382c5085054f312";
-		var birdAPI = "js/birdData.json";
+		var birdAPI = "js/birdData2.json";
 
 		// Get Bird Data methods: point of box
 	  // var birdAPI = "http://www.xeno-canto.org/api/2/recordings?query=lat:" + lat + ",lon:" + lon + "callback=?";
-	  // var birdBoxAPI = "http://www.xeno-canto.org/api/2/recordings?query=box:" + (lat - 0.5) + "," + (lon - 0.5) + "," + (lat + 0.5) + "," + (lon + 0.5) + "callback=?";
+	  // var birdAPI = "http://www.xeno-canto.org/api/2/recordings?query=box:" + (lat - 0.5) + "," + (lon - 0.5) + "," + (lat + 0.5) + "," + (lon + 0.5) + "callback=?";
 	  // var birdBoxExampleAPI = "http://www.xeno-canto.org/api/2/recordings?query=box:45.5,-122.0,46.0,-121.0";
-
 
 		$.when(
 		    $.getJSON(weatherAPI),
@@ -68,7 +68,7 @@
 
 			// Weather Data!
 			var weatherData = rawWeatherData[0];
-
+			// console.log(weatherData);
 			// Wind descriptions based on the Beaufort scale
 			function describeWind(d) {
 					return d > 31  ? 'there is high wind' :
@@ -92,19 +92,20 @@
 
 			// Bird Data!
 			var birdData = rawBirdData[0];
+			// console.log(birdData);
 
-			// Make an array of three random and unique birds from the data
-			// Needs work: lower case names and create unique.
-			// Maybe construct new JSON with audio url and formated names?
-			var birds = [];
-			for (var i = 0; i < birdData.recordings.length; i++) {
-				birds.push(birdData.recordings[i].en);
+			var flags = [], birds = [], l = birdData.recordings.length, i;
+			for( i=0; i<l; i++) {
+			    if( flags[birdData.recordings[i].en]) continue;
+			    flags[birdData.recordings[i].en] = true;
+			    birds.push({birdName: birdData.recordings[i].en.toLowerCase(), birdCall: birdData.recordings[i].file});
 			}
-			console.log(birds.filter(onlyUnique));
+
+			console.log(birds);
 
 			// Bird description.
 			function describeBirds(d){
-				return "You can hear the " + d[0].toLowerCase() + ", " + d[1].toLowerCase() + ", and " + d[2].toLowerCase();
+				return "You can hear the " + d[0].birdName + ", " + d[1].birdName + ", and " + d[2].birdName;
 			}
 
 			// Populate soundscape discription from data
@@ -112,7 +113,7 @@
 				+ describeWind(weatherData.wind.speed)
 				+ describeRain(weatherData)
 				+ ". "
-				+ describeBirds(birds.filter(onlyUnique))
+				+ describeBirds(birds)
 				+ "."
 			);
 
@@ -126,14 +127,8 @@
 	    $("#select").fadeIn( 400 );
 
 			// Pan back to center of map when searching again?
-				// map.panTo([40, -98]);
-			  // $('#cords-lat').text("40.00");
-			  // $('#cords-lon').text("-98.00");
+			// map.panTo([40, -98]);
+		  // $('#cords-lat').text("40.00");
+		  // $('#cords-lon').text("-98.00");
 	  });
-	}
-
-// Helper functions
-	// Find only unique items in an array
-	function onlyUnique(value, index, self) {
-	    return self.indexOf(value) === index;
 	}
