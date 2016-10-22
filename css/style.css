@@ -48,14 +48,13 @@ img {
   position: absolute;
   z-index: 1001;
   background: linear-gradient(135deg, rgba(85,239,203,0.9) 0%,rgba(30,87,153,0.9) 0%,rgba(85,239,203,0.9) 0%,rgba(91,202,255,0.9) 100%);
-  padding-left: 20px;
 }
 
 #welcome h1 {
   font-size: 40px;
   max-width: 580px;
   margin-right: 60px;
-
+  padding-left: 20px;
 }
 
 button {
@@ -72,6 +71,7 @@ button {
   text-transform: uppercase;
   padding: 0 18px;
   font-weight: bold;
+  margin-left: 20px;
 
   transition: 0.75s ease;
   cursor: pointer;
@@ -85,7 +85,6 @@ button:hover {
   border: 3px solid #343332;
 }
 
-
 /*//////////////////////////*/
 /*///////// Explore ////////*/
 /*//////////////////////////*/
@@ -96,7 +95,6 @@ button:hover {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  /*background-color: rgba(0, 0, 0, 0.25);*/
 }
 
 #select h2{
@@ -129,7 +127,7 @@ button:hover {
 .buttonContainer {
   position: absolute;
   width: 100%;
-  bottom: 10%
+  bottom: 10%;
 }
 
 #listenButton {
@@ -137,7 +135,7 @@ button:hover {
   background-color: #FEFEFE;
   color: #343332;
   font-weight: bold;
-  margin: 60px auto;
+  margin: 0px auto;
 }
 
 /*//////////////////////////*/
@@ -163,7 +161,6 @@ button:hover {
   bottom: 0;
   right: 0;
 }
-
 
 /*Animations*/
 
@@ -231,24 +228,9 @@ button:hover {
   }
 
 
-/*Soundcite overrides*/
-
-.soundcite-loaded{
-  border-radius: 2px;
-  background-color: rgba(85,239,203,0.8) !important;
-}
-
-.soundcite-loaded:before {
-   display: none !important;
-}
-
 /*///////// Mobile /////////*/
 
 @media (max-width:540px) {
-
-  #welcome {
-    /*padding: 40px 20px 0px 0px;*/
-  }
 
   button {
     font-size: 16px;
@@ -261,7 +243,6 @@ button:hover {
   #select h2{
     font-size: 24px;
   }
-
 
   #soundscapeDiscription{
     font-size: 30px;
