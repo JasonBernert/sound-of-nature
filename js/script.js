@@ -61,16 +61,14 @@ function listen(){
   // Format API calls with latitude and longitude
   var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=0d4413a00459125fa382c5085054f312";
 
-	// Get Bird Data methods: point of box
-  var birdAPI = "http://www.xeno-canto.org/api/2/recordings?query=lat:" + lat + ",lon:" + lon + "callback=?";
+	// Get Bird Data through proxy server because no CORS / JSONP supoort
 	var birdExampleAPI = "js/birdExampleData.json";
-	var birdBoxAPI = "http://www.xeno-canto.org/api/2/recordings?query=box:" + (lat - 0.5) + "," + (lon - 0.5) + "," + (lat + 0.5) + "," + (lon + 0.5)+ "callback=?";
-  var birdBoxExampleAPI = "http://www.xeno-canto.org/api/2/recordings?query=box:45.5,-122.0,46.0,-121.0";
-	// console.log(birdAPI);
+  var birdAPI = "http://bird-sound-proxy.herokuapp.com/?url=http://www.xeno-canto.org/api/2/recordings?query=lat:" + lat + ",lon:" + lon;
+	var birdBoxAPI = "http://bird-sound-proxy.herokuapp.com/?url=http://www.xeno-canto.org/api/2/recordings?query=box:" + (lat - 0.5) + "," + (lon - 0.5) + "," + (lat + 0.5) + "," + (lon + 0.5);
 
 	$.when(
 	    $.getJSON(weatherAPI),
-	    $.getJSON(birdExampleAPI)
+	    $.getJSON(birdBoxAPI)
 	).done(function(rawWeatherData, rawBirdData) {
 
 		// Weather Data!
@@ -111,20 +109,40 @@ function listen(){
 
 		// Bird Data!
 		var birdData = rawBirdData[0];
-		// console.log(birdData);
-
-		var flags = [], birds = [], l = birdData.recordings.length, i;
-		for( i=0; i<l; i++) {
-		    if( flags[birdData.recordings[i].en]) continue;
-		    flags[birdData.recordings[i].en] = true;
-		    birds.push({birdName: birdData.recordings[i].en.toLowerCase(), birdCall: birdData.recordings[i].file});
-		}
-
-		// console.log(birds);
 
 		// Bird description.
 		function describeBirds(d){
-			return "You can hear the " + d[0].birdName + ", " + d[1].birdName + ", and " + d[2].birdName;
+			if (d.numRecordings > 0) {
+				console.log('Found ' + d.numRecordings + ' birds');
+				// console.log(d);
+
+				// Get unique Birds
+				var flags = [], birds = [], l = birdData.recordings.length, i;
+				for( i=0; i<l; i++) {
+				    if( flags[birdData.recordings[i].en]) continue;
+				    flags[birdData.recordings[i].en] = true;
+						birds.push({birdName: birdData.recordings[i].en.toLowerCase(), birdCall: birdData.recordings[i].file});
+				}
+				console.log('There are ' + birds.length + ' unique birds.');
+				// console.log(birds);
+
+				var weThreeBirds = [];
+				if (birds.length >= 3) {
+					console.log('Reducing to three just birds, becuase I like the rule of threes.');
+					for (var i = 0; i < 3; i++) {
+						return "You can hear the " + birds[randomNumber(birds)].birdName + ", "+ birds[randomNumber(birds)].birdName + " and " + birds[randomNumber(birds)].birdName + "."
+					}
+				} else if (birds.length == 3){
+					return "You can hear the " + birds[0].birdName + ", " + birds[1].birdName + " and " + birds[2].birdName + "."
+				} else if (birds.length == 2){
+					return "You can hear the " + birds[0].birdName + " and " + birds[1].birdName + "."
+				} else if (birds.length == 1) {
+					return "You can hear the " + birds[0].birdName + "."
+				}
+
+			} else {
+				return ""
+			}
 		}
 
 		// Populate soundscape discription from data
@@ -132,12 +150,8 @@ function listen(){
 			+ describeWind(weatherData.wind.speed)
 			+ describeRain(weatherData)
 			+ ". "
-			+ describeBirds(birds)
-			+ "."
+			+ describeBirds(birdData)
 		);
-
-
-
 
 		// Create list of sound links for buffers
 		var bufferList = []
@@ -174,4 +188,8 @@ function startOver() {
 
 	gainNode.disconnect();
 
+}
+
+function randomNumber(d){
+	return Math.floor(Math.random() * d.length);
 }
