@@ -15,6 +15,15 @@ var map = L.map('map', {
 map.addLayer(Esri_WorldImagery);
 map.doubleClickZoom.disable();
 
+// Create audio context
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+var audioCtx = new AudioContext();
+var bufferLoader;
+var masterGain = audioCtx.createGain();
+masterGain.gain.value = 0.8;
+masterGain.connect(audioCtx.destination);
+
+
 // Hiding with jQuery to later show with jQuery
 $('.leaflet-top').hide();
 $('.leaflet-control-attribution').hide();
@@ -38,12 +47,6 @@ function next(){
       // $('.leaflet-control-attribution').fadeIn( 500 );
     });
 }
-
-// Create audio context
-var AudioContext = window.AudioContext || window.webkitAudioContext;
-var audioCtx = new AudioContext();
-var bufferLoader;
-var gainNode = audioCtx.createGain();
 
 // When the user hits the listen button
 function listen(){
@@ -87,11 +90,11 @@ function listen(){
 		}
 
 		function hearWind(d){
-			return d > 31  ? '../audio/wind/wind01.mp3' :
-						 d > 25  ? '../audio/wind/wind01.mp3' :
-						 d > 18  ? '../audio/wind/wind01.mp3' :
-						 d > 13  ? '../audio/wind/wind01.mp3' :
-						 d > 8   ? '../audio/wind/wind01.mp3' :
+			return d > 31  ? '../audio/wind/wind05.mp3' :
+						 d > 25  ? '../audio/wind/wind05.mp3' :
+						 d > 18  ? '../audio/wind/wind05.mp3' :
+						 d > 13  ? '../audio/wind/wind03.mp3' :
+						 d > 8   ? '../audio/wind/wind03.mp3' :
 						 d > 3   ? '../audio/wind/wind01.mp3' :
 						 d > 0   ? '../audio/wind/wind01.mp3' :
 											 '';
@@ -126,18 +129,23 @@ function listen(){
 				console.log('There are ' + birds.length + ' unique birds.');
 				// console.log(birds);
 
-				var weThreeBirds = [];
 				if (birds.length >= 3) {
+					var bird1 = randomNumber(birds);
+					var bird2 = randomNumber(birds);
+					var bird3 = randomNumber(birds);
 					console.log('Reducing to three just birds, becuase I like the rule of threes.');
-					for (var i = 0; i < 3; i++) {
-						return "You can hear the " + birds[randomNumber(birds)].birdName + ", "+ birds[randomNumber(birds)].birdName + " and " + birds[randomNumber(birds)].birdName + "."
-					}
+					// $("#birdAudio").html('<audio><source src="' + birds[bird1].birdCall + '"></audio>');
+					createAudio(birds[bird1].birdCall);
+
+
+					return "You can hear the " + birds[bird1].birdName + ", "+ birds[bird2].birdName + " and " + birds[bird3].birdName + ".";
+
 				} else if (birds.length == 3){
-					return "You can hear the " + birds[0].birdName + ", " + birds[1].birdName + " and " + birds[2].birdName + "."
+					return "You can hear the " + birds[0].birdName + ", " + birds[1].birdName + " and " + birds[2].birdName + ".";
 				} else if (birds.length == 2){
-					return "You can hear the " + birds[0].birdName + " and " + birds[1].birdName + "."
+					return "You can hear the " + birds[0].birdName + " and " + birds[1].birdName + ".";
 				} else if (birds.length == 1) {
-					return "You can hear the " + birds[0].birdName + "."
+					return "You can hear the " + birds[0].birdName + ".";
 				}
 
 			} else {
@@ -153,6 +161,7 @@ function listen(){
 			+ describeBirds(birdData)
 		);
 
+
 		// Create list of sound links for buffers
 		var bufferList = []
 		bufferList.push(hearWind(weatherData.wind.speed));
@@ -164,13 +173,13 @@ function listen(){
 		bufferLoader = new BufferLoader(audioCtx,bufferList,finishedLoading);
 		bufferLoader.load();
 
+		// Create AudioBufferSource Nodes
 		function finishedLoading(bufferList) {
 			for (var i = 0; i < bufferList.length; i++) {
 				var source = audioCtx.createBufferSource();
 				source.buffer = bufferList[i];
-		    gainNode.gain.value = 1;
-				source.connect(gainNode);
-				gainNode.connect(audioCtx.destination);
+				source.connect(masterGain);
+				masterGain.connect(audioCtx.destination);
 				source.loop = true;
 				source.start();
 			}
@@ -186,10 +195,26 @@ function startOver() {
     $("#select").fadeIn( 400 );
   });
 
-	gainNode.disconnect();
+	masterGain.disconnect();
 
 }
 
 function randomNumber(d){
 	return Math.floor(Math.random() * d.length);
+}
+
+// Create an <audio> element and append to Bird Sounds div
+function createAudio(file) {
+	var audio = new Audio();
+	audio.src = file;
+	audio.controls = false;
+	audio.autoplay = true;
+	document.body.appendChild(audio);
+
+	audio.addEventListener('canplaythrough', function() {
+		var source = audioCtx.createMediaElementSource(audio);
+		console.log(source);
+		source.connect(masterGain);
+	}, false);
+
 }
