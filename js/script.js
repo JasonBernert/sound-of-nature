@@ -60,7 +60,7 @@ function listen(){
 	var lon = center.lng;
 
 	// Format API calls with latitude and longitude
-	var weatherAPI = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=0d4413a00459125fa382c5085054f312";
+	var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=0d4413a00459125fa382c5085054f312";
 
 	// Get Bird Data through proxy server because no CORS / JSONP supoort
 	var birdExampleAPI = "js/birdExampleData.json";
