@@ -4,13 +4,13 @@ var Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/
 });
 
 var map = L.map('map', {
-  scrollWheelZoom: false,
-  center: [40, -98],
-  zoom: 4,
-  minZoom: 4,
-  maxZoom: 4,
+	scrollWheelZoom: false,
+	center: [40, -98],
+	zoom: 4,
+	minZoom: 4,
+	maxZoom: 4,
 	worldCopyJump: true
- });
+});
 
 map.addLayer(Esri_WorldImagery);
 map.doubleClickZoom.disable();
@@ -23,7 +23,6 @@ var masterGain = audioCtx.createGain();
 masterGain.gain.value = 0.8;
 masterGain.connect(audioCtx.destination);
 
-
 // Hiding with jQuery to later show with jQuery
 $('.leaflet-top').hide();
 $('.leaflet-control-attribution').hide();
@@ -32,11 +31,11 @@ $('.leaflet-control-attribution').hide();
 map.on('drag', onMapDrag);
 
 function onMapDrag(e) {
-  var center = map.getCenter();
-  var centerLat = center.lat.toFixed(2);
-  var centerLon = center.lng.toFixed(2);
-  $('#cords-lat').text(centerLat);
-  $('#cords-lon').text(centerLon);
+	var center = map.getCenter();
+	var centerLat = center.lat.toFixed(2);
+	var centerLon = center.lng.toFixed(2);
+	$('#cords-lat').text(centerLat);
+	$('#cords-lon').text(centerLon);
 }
 
 // When the user hits the explore button
@@ -51,22 +50,21 @@ function next(){
 // When the user hits the listen button
 function listen(){
 
-  $("#select").fadeOut( 500, function() {
-    $("#listen").fadeIn( 1000 );
-  });
+	$("#select").fadeOut( 500, function() {
+		$("#listen").fadeIn( 1000 );
+	});
 
-  // Leaflet funtion to get lat and lon of center of the map
-  var center = map.getCenter();
-  var lat = center.lat;
-  var lon = center.lng;
+	// Leaflet funtion to get lat and lon of center of the map
+	var center = map.getCenter();
+	var lat = center.lat;
+	var lon = center.lng;
 
-
-  // Format API calls with latitude and longitude
-  var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=0d4413a00459125fa382c5085054f312";
+	// Format API calls with latitude and longitude
+	var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=0d4413a00459125fa382c5085054f312";
 
 	// Get Bird Data through proxy server because no CORS / JSONP supoort
 	var birdExampleAPI = "js/birdExampleData.json";
-  var birdAPI = "http://bird-sound-proxy.herokuapp.com/?url=http://www.xeno-canto.org/api/2/recordings?query=lat:" + lat + ",lon:" + lon;
+	var birdAPI = "http://bird-sound-proxy.herokuapp.com/?url=http://www.xeno-canto.org/api/2/recordings?query=lat:" + lat + ",lon:" + lon;
 	var birdBoxAPI = "http://bird-sound-proxy.herokuapp.com/?url=http://www.xeno-canto.org/api/2/recordings?query=box:" + (lat - 0.5) + "," + (lon - 0.5) + "," + (lat + 0.5) + "," + (lon + 0.5);
 
 	$.when(
@@ -192,11 +190,9 @@ function listen(){
 function startOver() {
 	$("#listen").fadeOut( 200, function() {
 		$('#soundscapeDiscription').html("");
-    $("#select").fadeIn( 400 );
-  });
-
+		$("#select").fadeIn( 400 );
+	});
 	masterGain.disconnect();
-
 }
 
 function randomNumber(d){
