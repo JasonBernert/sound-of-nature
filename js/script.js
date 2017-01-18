@@ -83,21 +83,19 @@ function listen(){
 		}
 
 		// load wind audio element based on wind speed
-		function hearWind(speed){
+		function hearWind(windSpeed){
 			let windFile = '';
-			if(speed > 18){
-				windFile = '../audio/wind/wind05.mp3';
-			} else if (speed > 8) {
-				windFile = '../audio/wind/wind03.mp3';
+			if(windSpeed > 13){
+				windFile = 'http://www.zapsplat.com/wp-content/uploads/2015/sound-effects-four/nature_wind_trees_strong_park_001.mp3';
 			} else {
-				windFile = '../audio/wind/wind01.mp3';
+				windFile = 'http://www.zapsplat.com/wp-content/uploads/2015/sound-effects-four/nature_wind_breeze_against%20slighty_open_window_from_inside.mp3';
 			}
-			createAudio(windFile, 'wind');
+			createAudio(windFile, true);
 		}
 
 		// Rain description. Maybe make more descriptive based on amount of rain?
 		function describeRain(rain) {return rain > 0 ? ' and it&rsquo;s raining' : '';}
-		function hearRain(rain) {rain > 0 ? createAudio('../audio/rain/rain.mp3'): '';}
+		function hearRain(rain) {rain > 0 ? createAudio('http://www.zapsplat.com/wp-content/uploads/2015/sound-effects-one/weather_rain_med_light_back_yard.mp3', true): '';}
 		hearRain(rain);
 		hearWind(wind);
 
@@ -162,13 +160,21 @@ function createAudio(file, loop) {
 	audio.loop = loop;
 	audio.autoplay = true;
 	document.body.appendChild(audio);
+
 	soundscape.push(audio);
+
+	audio.addEventListener('timeupdate', function(){
+                var buffer = .6
+                if(this.currentTime > this.duration - buffer){
+                    this.currentTime = 0
+                    this.play()
+                }}, false);
 }
 
 // When the user hits the "Search Again" button
 function startOver() {
 	$("#listen").fadeOut( 200, function() {
-		$('#soundscapeDiscription').html("");
+		$('#soundscapeDiscription').html(`<img src="fonts/ellipsis.svg" alt="loading...">`);
 		$("#select").fadeIn( 400 );
 	});
 	soundscape.forEach(sound => sound.remove());
