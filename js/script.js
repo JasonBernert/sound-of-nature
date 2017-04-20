@@ -6,20 +6,6 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 var lat = 40;
 var lon = -98;
 
-navigator.geolocation.getCurrentPosition(function(position) {
-	var userLat = position.coords.latitude;
-	var userLon = position.coords.longitude;
-	map.panTo(userLat,userLon);
-});
-
-function getLocation() {
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(showPosition);
-	} else {
-		x.innerHTML = "Geolocation is not supported by this browser.";
-	}
-}
-
 var map = L.map('map', {
 	scrollWheelZoom: false,
 	center: [lat, lon],
@@ -28,6 +14,18 @@ var map = L.map('map', {
 	maxZoom: 4,
 	worldCopyJump: true
 });
+
+function locationSuccess(position) {
+	var userLat = position.coords.latitude;
+	var userLon = position.coords.longitude;
+	map.panTo([userLat,userLon]);
+	lat = userLat;
+	lon = userLon;
+	$('#cords-lat').text(lat.toFixed(2));
+	$('#cords-lon').text(lon.toFixed(2));
+};
+
+navigator.geolocation.getCurrentPosition(locationSuccess);
 
 map.addLayer(Esri_WorldImagery);
 map.doubleClickZoom.disable();
@@ -51,8 +49,8 @@ map.on('drag', onMapDrag);
 function next(){
     $("#welcome").fadeOut( 500, function() {
       $("#select").fadeIn( 500 );
-      // $('.leaflet-top').fadeIn( 500 );
-      // $('.leaflet-control-attribution').fadeIn( 500 );
+      $('.leaflet-top').fadeIn( 500 );
+      $('.leaflet-control-attribution').fadeIn( 500 );
     });
 }
 
