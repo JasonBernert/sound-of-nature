@@ -3,9 +3,26 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 });
 
+var lat = 40;
+var lon = -98;
+
+navigator.geolocation.getCurrentPosition(function(position) {
+	var userLat = position.coords.latitude;
+	var userLon = position.coords.longitude;
+	map.panTo(userLat,userLon);
+});
+
+function getLocation() {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(showPosition);
+	} else {
+		x.innerHTML = "Geolocation is not supported by this browser.";
+	}
+}
+
 var map = L.map('map', {
 	scrollWheelZoom: false,
-	center: [40, -98],
+	center: [lat, lon],
 	zoom: 4,
 	minZoom: 4,
 	maxZoom: 4,
@@ -29,7 +46,6 @@ function onMapDrag() {
 }
 
 map.on('drag', onMapDrag);
-
 
 // When the user hits the explore button
 function next(){
