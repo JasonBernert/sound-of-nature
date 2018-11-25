@@ -1,0 +1,17 @@
+{
+  "name": "sounds-of-nature",
+  "version": "1.0.0",
+  "description": "Location based soundscape generator",
+  "main": "scripts.js",
+  "scripts": {
+    "start": "browser-sync start --server 'docs' --files 'docs'"
+  },
+  "author": "Jason Bernert",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.12.5",
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
+}

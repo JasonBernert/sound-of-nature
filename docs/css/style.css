@@ -36,18 +36,16 @@ img {
   box-decoration-break: clone;
 }
 
-
 /*//////////////////////////*/
 /*///////// Welcome /////////*/
 /*//////////////////////////*/
-
 #welcome {
   margin: 0 auto;
   width: 100%;
   height: 100%;
   position: absolute;
   z-index: 1001;
-  background: linear-gradient(135deg, rgba(85,239,203,0.9) 0%,rgba(30,87,153,0.9) 0%,rgba(85,239,203,0.9) 0%,rgba(91,202,255,0.9) 100%);
+  background: linear-gradient(135deg, rgba(85, 239, 203, 0.8) 0%, rgba(30, 87, 153, 0.8) 0%, rgba(85, 239, 203, 0.8) 0%, rgba(91, 202, 255, 0.8) 100%);
 }
 
 #welcome h1 {
@@ -63,7 +61,7 @@ img {
   width: 100%;
   /*left: 0px;*/
   color: #FEFEFE;
-  font-weight:100;
+  font-weight: 100;
   text-align: center;
   font-family: 'Inconsolata', monospace;
 }
@@ -73,9 +71,8 @@ button {
   display: block;
   height: 50px;
   min-width: 50px;
-  background-color: rgba(255,255,255,0);
+  background-color: rgba(255, 255, 255, 0);
   border: 3px solid #FEFEFE;
-
   font-family: 'Montserrat', sans-serif;
   font-size: 18px;
   color: #FEFEFE;
@@ -83,14 +80,13 @@ button {
   text-transform: uppercase;
   padding: 0 18px;
   margin-left: 20px;
-
   transition: 0.75s ease;
   cursor: pointer;
   pointer-events: auto;
 }
 
 button:hover {
-  background-color: rgba(255,255,255,1);
+  background-color: rgba(255, 255, 255, 1);
   color: #343332;
   border: 3px solid #343332;
 }
@@ -98,8 +94,7 @@ button:hover {
 /*//////////////////////////*/
 /*///////// Explore ////////*/
 /*//////////////////////////*/
-
-#select{
+#select {
   position: absolute;
   z-index: 1001;
   width: 100%;
@@ -107,7 +102,7 @@ button:hover {
   pointer-events: none;
 }
 
-#select h2{
+#select h2 {
   max-width: 540px;
   text-align: center;
 }
@@ -121,7 +116,7 @@ button:hover {
   fill: white;
 }
 
-#coordinates{
+#coordinates {
   position: absolute;
   top: calc(50% - 26px);
   left: calc(50% + 30px);
@@ -150,7 +145,6 @@ button:hover {
 /*//////////////////////////*/
 /*///////// Listen /////////*/
 /*//////////////////////////*/
-
 #listen {
   position: absolute;
   z-index: 1001;
@@ -159,88 +153,88 @@ button:hover {
   background-color: rgba(0, 0, 0, 0);
 }
 
-#soundscapeDiscription{
+#soundscapeDiscription {
   color: #FEFEFE;
   font-size: 48px;
   padding: 1em;
 }
 
-#startOverButton{
+#startOverButton {
   position: absolute;
   bottom: 0;
   right: 0;
 }
 
 /*Animations*/
-
 .animated {
-    -webkit-animation-duration: 2s;
-    animation-duration: 2s;
-    -webkit-animation-delay: 0.5s;
-    animation-delay: 0.5s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-20px);
   }
 
-  @-webkit-keyframes fadeInLeft {
-     0% {
-        opacity: 0;
-        -webkit-transform: translateX(-20px);
-     }
-     100% {
-        opacity: 1;
-        -webkit-transform: translateX(0);
-     }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
   }
 
-  @keyframes fadeInLeft {
-     0% {
-        opacity: 0;
-        transform: translateX(-20px);
-     }
-     100% {
-        opacity: 1;
-        transform: translateX(0);
-     }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
   }
 
-  @-webkit-keyframes fadeInUp {
-     0% {
-        opacity: 0;
-        -webkit-transform: translateY(20px);
-     }
-     100% {
-        opacity: 1;
-        -webkit-transform: translateY(0);
-     }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
   }
 
-  @keyframes fadeInUp {
-     0% {
-        opacity: 0;
-        transform: translateY(20px);
-     }
-     100% {
-        opacity: 1;
-        transform: translateY(0);
-     }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
-  .fadeInUp {
-     -webkit-animation-name: fadeInUp;
-     animation-name: fadeInUp;
-  }
+.fadeInUp {
+  -webkit-animation-name: fadeInUp;
+  animation-name: fadeInUp;
+}
 
-  .fadeInLeft {
-     -webkit-animation-name: fadeInLeft;
-     animation-name: fadeInLeft;
-  }
-
+.fadeInLeft {
+  -webkit-animation-name: fadeInLeft;
+  animation-name: fadeInLeft;
+}
 
 /*///////// Mobile /////////*/
-
 @media (max-width:540px) {
-
   button {
     font-size: 16px;
   }
@@ -249,12 +243,11 @@ button:hover {
     font-size: 24px;
   }
 
-  #select h2{
+  #select h2 {
     font-size: 24px;
   }
 
-  #soundscapeDiscription{
+  #soundscapeDiscription {
     font-size: 30px;
   }
-
 }
