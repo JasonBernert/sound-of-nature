@@ -206,3 +206,7 @@ function startOver() {
   soundscape.forEach(sound => sound.remove());
   soundscape = [];
 }
+
+$('#startOverButton').click(startOver);
+$('#listenButton').click(listen);
+$('#startButton').click(next);
